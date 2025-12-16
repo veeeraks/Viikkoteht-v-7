@@ -1,24 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="fi">
 <head>
-  <meta charset="UTF-8">
-  <title>CI/CD App</title>
+    <meta charset="UTF-8">
+    <title>CI/CD Konttisovellus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 16px;
+            margin-top: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            max-width: 500px;
+        }
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <h1>CI/CD konttisovellus</h1>
-  <button onclick="health()">Health</button>
-  <button onclick="visits()">Visits</button>
-  <pre id="out"></pre>
+
+<div class="box">
+    <h1>CI/CD konttisovellus 🚀</h1>
+
+    <p>
+        Tämä frontend toimii Docker-kontissa (Nginx) ja kutsuu backendia
+        Flask-sovellukseen reverse proxyn kautta.
+    </p>
+
+    <button onclick="checkHealth()">Tarkista backendin tila</button>
+    <div id="health" class="result"></div>
+
+    <br>
+
+    <button onclick="getVisits()">Hae käyntilaskuri</button>
+    <div id="visits" class="result"></div>
+</div>
 
 <script>
-async function health() {
-  const r = await fetch('/cicd/health');
-  document.getElementById('out').innerText = await r.text();
-}
-async function visits() {
-  const r = await fetch('/cicd/api/visits');
-  document.getElementById('out').innerText = await r.text();
-}
+    async function checkHealth() {
+        try {
+            const res = await fetch('/cicd/health');
+            const text = await res.text();
+            document.getElementById('health').innerText =
+                'Backend status: ' + text;
+        } catch (err) {
+            document.getElementById('health').innerText =
+                'Backend ei vastaa';
+        }
+    }
+
+    async function getVisits() {
+        try {
+            const res = await fetch('/cicd/api/visits');
+            const text = await res.text();
+            document.getElementById('visits').innerText =
+                text;
+        } catch (err) {
+            document.getElementById('visits').innerText =
+                'Virhe haettaessa tietoja';
+        }
+    }
 </script>
+
 </body>
 </html>
