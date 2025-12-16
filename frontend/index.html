@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CI/CD App</title>
+</head>
+<body>
+  <h1>CI/CD konttisovellus</h1>
+  <button onclick="health()">Health</button>
+  <button onclick="visits()">Visits</button>
+  <pre id="out"></pre>
+
+<script>
+async function health() {
+  const r = await fetch('/cicd/health');
+  document.getElementById('out').innerText = await r.text();
+}
+async function visits() {
+  const r = await fetch('/cicd/api/visits');
+  document.getElementById('out').innerText = await r.text();
+}
+</script>
+</body>
+</html>

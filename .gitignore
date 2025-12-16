@@ -1,0 +1,25 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Docker
+*.log
+
+# Env
+.env
+
+# OS
+.DS_Store
+
+# Tests artifacts
+.pytest_cache/
+
+# MySQL data (jos joskus bind-mountattu)
+db_data/
